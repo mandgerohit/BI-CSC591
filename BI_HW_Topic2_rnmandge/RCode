@@ -1,0 +1,68 @@
+ebayData = read.table('/home/rnmandge/R/eBayAuctions.csv', header=TRUE, sep=",")
+table2 <- table(ebayData$currency, ebayData$Competitive.)
+totalCount<-table2[,1]+table2[,2]
+table2[,1] <- table2[,1]/totalCount
+table2[,2] <- table2[,2]/totalCount
+table2
+t(table2)
+pivotTable1<-t(table2)
+
+myTable<-table(ebayData$Category, ebayData$Competitive.)
+totalCount<-myTable[,1]+myTable[,2]
+myTable[,1] <- myTable[,1]/(myTable[,1]+myTable[,2])
+myTable<-table(ebayData$Category, ebayData$Competitive.)
+myTable[,1] <- myTable[,1]/totalCount
+myTable[,2] <- myTable[,2]/totalCount
+pivotTable2 <- t(myTable)
+
+myTable1<-table(ebayData$endDay, ebayData$Competitive.)
+totalCount<-myTable1[,1]+myTable1[,2]
+myTable1[,2] <- myTable1[,2]/totalCount
+myTable1[,1] <- myTable1[,1]/totalCount
+pivotTable4 <- t(myTable1)
+pivotTable4
+
+myTable2<-table(ebayData$Duration, ebayData$Competitive.)
+totalCount<-myTable2[,1]+myTable2[,2]
+myTable2[,2] <- myTable2[,2]/totalCount
+myTable2[,1] <- myTable2[,1]/totalCount
+pivotTable3 <- t(myTable2)
+
+ebayData$currency[ebayData$currency=='EUR'] <- 'US'
+
+ebayData$Duration[ebayData$Duration=='7'] <- '3'
+ebayData$Duration[ebayData$Duration=='10'] <- '1'
+
+ebayData$endDay[ebayData$endDay=='Sat'] <- 'Fri'
+ebayData$endDay[ebayData$endDay=='Sun'] <- 'Wed'
+
+ebayData$Category[ebayData$Category =='Computer'] <- 'Business/Industrial'
+ebayData$Category[ebayData$Category =='Pottery/Glass'] <- 'Automotive'
+ebayData$Category[ebayData$Category =='Clothing/Accessories'] <- 'Books'
+ebayData$Category[ebayData$Category =='Collectibles'] <- 'Antique/Art/Craft'
+ebayData$Category[ebayData$Category =='Photography'] <- 'Electronics'
+
+
+ebayData$endDay.f <- factor(ebayData$endDay)
+ebayData$currency.f <- factor(ebayData$currency)
+ebayData$Category.f <- factor(ebayData$Category)
+ebayData$Duration.f<- factor(ebayData$Duration)
+contrasts(ebayData$Duration.f) <- contr.treatment(3)
+contrasts(ebayData$currency.f) <- contr.treatment(2)
+contrasts(ebayData$endDay.f) <- contr.treatment(5)
+contrasts(ebayData$Category.f) <- contr.treatment(13)
+
+contrasts(ebayData$Duration.f)
+factoredData <- ebayData
+factoredData$Duration.f <- NULL
+factoredData$currency.f <- NULL
+factoredData$Category.f <- NULL
+factoredData$endDay.f <- NULL
+
+set.seed(17)
+indexes <- sample(1:nrow(factoredData), size=0.4*nrow(factoredData))
+validationData = factoredData[indexes,]
+trainData = factoredData[-indexes,]
+
+fit.full <- glm(Competitive. ~ Category + currency + sellerRating+Duration +endDay +ClosePrice +OpenPrice,data = trainData,family = binomial(link="logit"))
+summary(fit.full)

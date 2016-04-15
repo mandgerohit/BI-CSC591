@@ -1,0 +1,6 @@
+Steps to build causal graph in Tetrad
+
+1. Use the "Data" box and load the residuals data that you saved in R.
+2. Connect the "Data" box to the "Search" box. You will need 2 "Search" boxes, one to run PC algorithm and the other for LiNGAM algorithm.
+3. Once you select the algorithm, the algorithm will output the causal graph.
+	

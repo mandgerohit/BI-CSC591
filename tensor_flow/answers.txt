@@ -1,0 +1,9 @@
+1. What is the tensor rank of the following matrices?
+a. [1,2,3,4]: rank 1
+b. [[1],[2],[2],[1]]: rank 2
+c. [ [ [ 1 ] ] ]: rank 3
+
+2. Suppose you have two vectors with the following shapes: A = [None,1] and B = [None]. If you try to multiply these two matrices, the following error will be thrown:
+"ValueError: A([Dimension(None),Dimension(1)]) and B([Dimension(None)]) must have the same rank"
+Provide the fix to the shape of B to fix this error.
+Ans: Declare A = [None,1] and B = [1]

@@ -1,0 +1,35 @@
+
+# STEP 1: Install R from https://cran.r-project.org/index.html
+# STEP 2: Install RStudio from https://www.rstudio.com/products/rstudio/download/
+# STEP 3: Start RStudio
+# Step 4: Install the swirl library from RStudio console:
+
+install.packages("swirl")
+
+# STEP 5: Load the swirl library from RStudio console:
+
+library(swirl)
+
+# STEP 6: Install R Programming Tutorial from RStudio Console
+
+install_course_zip("path/to/file/here/R_tutorial.zip", multi=TRUE, which_course="R Programming")
+
+# here is an example for my path:				   
+install_course_zip("C:/Users/nagiza/Desktop/R_tutorial.zip", multi=TRUE, which_course="R_Programming")
+
+# STEP 7: Start the tutorial from RStudio: 
+
+swirl()
+
+# STEP 8: IMPORTANT: After you finish each lesson, save the Rhistory for that lesson -> i.e "Rhistory.BildingBlocks" (We recommend to study the lessons in the order listed in the swirl()'s menu.)
+
+- If you look at the top-right side of the RStudio GUI you will see two tabs: "Environment" & "History"
+- Click the "History" tab
+- To Save your history for that lesson, click the "Save" icon and save it to a folder, you create, named R-Tutorial-Username -> you will upload this zipped folder with 21 Rhistory files (for each swirl() lesson) to the Course Assignment Submission Page for grading
+- Clear the history after each lesson by clicking the "Paint Brush" icon under the "History Tab".
+- PLEASE MAKE SURE THE HISTORY FILE SAVES BEFORE YOU MOVE ON TO THE NEXT MODULE
+   - If for some reason you find the Rhistory files not being saved:   
+   - Completely exit out of swirl(), then save.
+   - Restart RStudio then save.
+   - Alternate the locations where you are saving the file to.
+

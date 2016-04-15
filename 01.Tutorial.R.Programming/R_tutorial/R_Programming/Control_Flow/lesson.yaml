@@ -1,0 +1,133 @@
+- Class: meta
+  Course: R Programming
+  Lesson: Control Flow
+  Author: Nagiza Samatova, based on materials from www.datacamp.com
+  Type: NA
+  Organization: North Carolina State University
+  Version: 2.2.14
+
+- Class: text
+  Output: "Before diving into some exercises on the if statement, 
+  have another look at its syntax:
+  if(condition) {
+    expr
+  }"
+
+- Class: text
+  Output: In the following question you will be asked to modify a script that will
+    appear as soon as you click Enter. When you have finished modifying
+    the script, SAVE your changes to the script and type submit(), and the script
+    will be evaluated. There will be some comments in the script that opens up, so be
+    sure to read them!
+
+- Class: script
+  Output: "Code an 'if' statement that 
+  appends \"You're popular!\" to the popularity test result message, msg, 
+  if the num_views variable exceeds 15. 
+  Make sure to SAVE your script before you type submit()."
+  AnswerTests: test_func1()
+  Hint: "Hint; Make sure to append your message to msg using paste() function, and assign the updated message to msg."
+  Script: popularity_test.R
+
+- Class: cmd_question
+  Output: "Let's examine the results of the popularity test using different arguments, or inputs. Providing arguments to a function is also
+    sometimes called passing arguments to that function. Arguments you want to 
+    pass to a popularity_test() function go inside the function's parentheses. Try passing the argument
+    'LinkedIn' as the medium and 16 as views to the popularity_test() function."
+  CorrectAnswer: popularity_test("LinkedIn", 16)
+  AnswerTests: omnitest(correctExpr='popularity_test("LinkedIn", 16)')
+  Hint: "Hint: Your output should be as follows: \"Popularity Test Results: Showing LinkedIn information You're popular!\""
+
+- Class: cmd_question
+  Output: "Now pass
+    'Facebook' as the medium and 16 as views to the popularity_test() function."
+  CorrectAnswer: popularity_test("Facebook", 16)
+  AnswerTests: omnitest(correctExpr='popularity_test("Facebook", 16)')
+  Hint: "Hint: Your output should be as follows: \"Popularity Test Results: You're popular!\""
+
+- Class: cmd_question
+  Output: "Finally, pass
+    'LinkedIn' as the medium and 14 as views to the popularity_test() function."
+  CorrectAnswer: popularity_test("LinkedIn", 14)
+  AnswerTests: omnitest(correctExpr='popularity_test("LinkedIn", 14)')
+  Hint: "Hint: Your output should be as follows: \"Popularity Test Results: Showing LinkedIn information\""
+  
+- Class: text
+  Output: "Adding 'else' statement: You can only use an 'else' statement in combination with an 'if' statement. The else statement does not require a condition; its corresponding code is simply run if all of the preceding conditions in the control structure are FALSE."
+
+- Class: text
+  Output: "Here's a recipe for its usage:
+if(condition) {
+  expr1
+} else {
+  expr2
+}"
+
+- Class: text
+  Output: "It's important that the 'else' keyword comes on the same line as the closing bracket of the 'if' part!"
+
+- Class: script
+  Output: "Add an else statement to 'num_views' control structure, such that the advice message \"Try to be more visible!\" is returned when the if-condition on num_views is not met. Note how an else statement to the 'medium' control structure is added, with 
+\"Unknown medium.\" gets appended to the message, msg. 
+
+  Make sure to SAVE your script before you type submit()."
+  AnswerTests: test_func2()
+  Hint: "Hint: Make sure to append your message to msg using paste() function, and assign the updated message to msg."
+  Script: popularity_advice.R
+
+- Class: text
+  Output: "The 'else if' statement allows to further customize your control structure. You can add as many 'else if' statements as you like. Keep in mind that R ignores the remainder of the control structure once a condition has been found that is TRUE and the corresponding expressions have been executed."
+
+- Class: text
+  Output: "Here's an overview of the syntax to freshen your memory:
+if(condition1) {
+  expr1
+} else if(condition2) {
+  expr2
+} else if(condition3) {
+  expr3
+} else {
+  expr4
+}"
+
+- Class: script
+  Output: "Add code to 'num_views control structures such that: \"Your number of views is average\" is reported if num_views is between 15 (inclusive) and 10 (exclusive). Note how 'else if' control structure is used for the 'medium'"
+  AnswerTests: test_func3()
+  Hint: "Hint: Make sure to append your message to msg using paste() function, and assign the updated message to msg."
+  Script: else_if_test.R
+
+- Class: script
+  Output: "Don't let the previous exercises misguide you: apart from simply printing out status messages, you can do anything you want inside if-else constructs. You can even put in another set of conditional statements. Examine the popped-up code and make sure you follow its control logic. Do NOT modify the code, simply write submit() in Console."
+  AnswerTests: test_func4()
+  Hint: "Hint: Type submit()"
+  Script: else_if_numeric_test.R
+
+- Class: text
+  Output: "Have a look at the following statements:
+(1) If number is set to 6, \"Number: small\" gets returned from the function.
+(2) If number is set to 100, function returns \"Number: medium\".
+(3) If number is set to 4, \"Number: extra small\" gets returned.
+(4) If number is set to 2500, R will generate an error, as result will not be defined"
+
+- Class: mult_question
+  Output: "Select the option that lists all the true statements from the above."
+  CorrectAnswer: "1 & 3"
+  AnswerChoices: 2 & 4; 1 & 4; 1 & 3; 2 & 3
+  AnswerTests: omnitest(correctVal='1 & 3')
+  Hint: "Hint: If you need to, you can evaluate each expression in a separate R session to find the correct answer."
+
+- Class: text
+  Output: " we've included two arguments beforehand: 'li' and 'fb', denoting the number of profile views your LinkedIn and Facebook profile had on the last days of recordings. Go through the instructions to create R code that generates a 'social media score', sms, based on the values of 'li' and 'fb'."
+
+- Class: script
+  Output: "Write a complete control-flow construct with the following behavior:
+(a) If both li and fb are at least 15, set sms equal to double the sum of li and fb.
+(b) If both li and fb are below 10 (exclusive), set sms equal to half the sum of li and fb.
+(c) In all other cases, set sms equal to the sum of li and fb.
+(d) Finally, return the resulting sms variable.
+
+Make sure to SAVE your script before you type submit().
+"
+  AnswerTests: test_func5()
+  Hint: "Hint: Use your console window to play with these control stmts."
+  Script: control_actions.R

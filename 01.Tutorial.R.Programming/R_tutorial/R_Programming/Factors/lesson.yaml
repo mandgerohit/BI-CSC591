@@ -1,0 +1,88 @@
+- Class: meta
+  Course: Intermediate R Programming
+  Lesson: Factors
+  Author: Nagiza Samatova
+  Type: Standard
+  Organization: North Carolina State University
+  Version: 0.0.1
+
+- Class: text
+  Output: "At this point you should know data structures that R could use to hold your data including vectors, matrices, arrays, data frames, lists, and factors:
+(1) Vectors (one dimensional array): can hold numeric, character or logical values. The elements in one vector all have the same datatype.
+(2) Matrices (two dimensional array) and arrays (multi-dimensional): can hold numeric, character or logical values. The elements in one matrix/array all have the same datatype.
+(3) Data frames (two-dimensional objects): can hold numeric, character or logical values. Within a column all elements have the same data type, but different columns can be of different data type.
+(4) A list in R is similar to your to-do list at work or school: the different items on that list most likely differ in length, characteristic, type of activity that has to do be done. A list in R allows you to gather a variety of objects under one name (that is, the name of the list) in an ordered way. These objects can be matrices, vectors, data frames, even other lists, etc. 
+"
+
+- Class: text
+  Output: "In this module you will learn another important data structure: factors. Remind that variables can be 
+  (a) continuous (e.g., temperature) or (b) categorical (e.g., course grades or the types of diabetes). Continous variables can take on any value within some range; 
+  different values differ in order (bigger/smaller) and in amount (how much bigger/smaller). 
+  For continuous variables, the number of distinct values is INFINITE. 
+  On the other hand, the number of distinct/unique values for a categorical variable is FINITE. 
+  "
+
+- Class: text
+  Output: "Categorical variables can be (a) nominal or (b) ordinal.
+  Ordinal variables imply order but not amount (e.g., performance <- c('poor', 'improved', 'excellent')).
+  Nominal variables do not imply the order (e.g., cities<- c('Raleigh', 'London', 'Paris'))."
+
+- Class: text
+  Output: "Categorical (nominal) and ordered categorical (ordinal) variables are called factors.
+  The function 'factor()' stores (a) the categorical values as a vector of integers in the range [1...k], 
+  where 'k' is the number of unique values in the nominal variable and (b) an internal vector of character strings
+  (the ordinal values) mapped to these integers."
+
+- Class: cmd_question
+  Output: "Create a vector named 'diabetes' with values c(\"Type1\", \"Type2\", \"Type3\", \"Type4\")."
+  CorrectAnswer: diabetes <- c("Type1", "Type2", "Type3", "Type4")
+  AnswerTests: omnitest(correctExpr='diabetes <- c("Type1", "Type2", "Type3", "Type4")')
+  Hint: "Hint: Create with diabetes <- c(\"Type1\", \"Type2\", \"Type3\", \"Type4\")."
+
+- Class: cmd_question
+  Output: "Create a nominal variable (unordered) 'ndiabetes' using the factor() function and 'diabetes' as its argument."
+  CorrectAnswer: ndiabetes <- factor(diabetes)
+  AnswerTests: omnitest(correctExpr='ndiabetes <- factor(diabetes)')
+  Hint: "Hint: Create with ndiabetes <- factor(diabetes)."
+
+- Class: cmd_question
+  Output: "Print 'ndiabetes' on the console"
+  CorrectAnswer: ndiabetes
+  AnswerTests: omnitest(correctExpr='ndiabetes')
+  Hint: "Hint: Print with ndiabetes."
+
+- Class: cmd_question
+  Output: "Create a vector named 'performance'  with values Poor, Improved, Excellent, and Poor."
+  CorrectAnswer: performance <- c("Poor", "Improved", "Excellent", "Poor")
+  AnswerTests: omnitest(correctExpr='performance <- c("Poor", "Improved", "Excellent", "Poor")')
+  Hint: "Hint: What do you get with performance <- c(\"Poor\", \"Improved\", \"Excellent\", \"Poor\")?"
+
+- Class: cmd_question
+  Output: "Now create an ordinal variable 'operformance' using factor() command that takes 'performance' as its argument.
+  But this time, specify 'ordered=TRUE' as the other argument to the function."
+  CorrectAnswer: operformance <- factor(performance, ordered=TRUE)
+  AnswerTests: omnitest(correctExpr='operformance <- factor(performance, ordered=TRUE)')
+  Hint: "Hint: What do you get with operformance <- factor(performance, ordered=TRUE)?"
+
+- Class: cmd_question
+  Output: "Print 'operformance' on the console. Did you notice that the level number for Poor is 3?"
+  CorrectAnswer: operformance
+  AnswerTests: omnitest(correctExpr='operformance')
+  Hint: "Hint: Print with operfomance."
+  
+- Class: text
+  Output: "By default, factor levels for character vectors are created in alphabetical order. To override the default,
+  you specify a 'levels' option in the factor() function."
+  
+- Class: cmd_question
+  Output: "Assign the levels 1=Poor, 2=Improved, and 3=Excellent with levels=c(\"Poor\", \"Improved\", \"Excellent\") as an option to factor()
+  for 'reverse_performance' variable."
+  CorrectAnswer: reverse_performance <- factor(performance, ordered=TRUE, levels=c("Poor", "Improved", "Excellent"))
+  AnswerTests: omnitest(correctExpr='reverse_performance <- factor(performance, ordered=TRUE, levels=c("Poor", "Improved", "Excellent"))')
+  Hint: "Hint: Try reverse_performance <- factor(performance, ordered=TRUE, levels=c(\"Poor\", \"Improved\", \"Excellent\"))"
+
+- Class: cmd_question
+  Output: "Print reverse_performance to the screen."
+  CorrectAnswer: reverse_performance 
+  AnswerTests: omnitest(correctExpr='reverse_performance')
+  Hint: reverse_performance 

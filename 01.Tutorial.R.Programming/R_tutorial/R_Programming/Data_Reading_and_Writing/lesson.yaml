@@ -1,0 +1,233 @@
+- Class: meta
+  Course: R Programming
+  Lesson: Data Reading and Writing
+  Author: Nagiza Samatova
+  Type: Standard
+  Organization: North Carolina State University
+  Version: 0.0.1   
+   
+- Class: text
+  Output: "At this point you should know data structures that R could use to hold your data including vectors, matrices, arrays, data frames, lists, and factors:
+(1) Vectors (one dimensional array): can hold numeric, character or logical values. The elements in one vector all have the same datatype.
+(2) Matrices (two dimensional array) and arrays (multi-dimensional): can hold numeric, character or logical values. The elements in one matrix/array all have the same datatype.
+(3) Data frames (two-dimensional objects): can hold numeric, character or logical values. Within a column all elements have the same data type, but different columns can be of different data type.
+(4) A list in R is similar to your to-do list at work or school: the different items on that list most likely differ in length, characteristic, type of activity that has to do be done. A list in R allows you to gather a variety of objects under one name (that is, the name of the list) in an ordered way. These objects can be matrices, vectors, data frames, even other lists, etc. 
+(5) A factor is used for storing categorical nominal or ordinal variables."
+
+- Class: text
+  Output: "In this module you will learn (a) how to enter/import your data into the data structure, or how to read the data and (b) how to export/save your R objects in the R environment for future re-use, or how to write the R objects."
+
+- Class: text
+  Output: "Let's first examine how to enter the data from the keyboard."
+
+- Class: cmd_question
+  Output: Create a data frame named my_df with data.frame(age=numeric(0), gender=character(0), weight=numeric(0)).
+  CorrectAnswer: my_df <- data.frame(age=numeric(0), gender=character(0), weight=numeric(0))
+  AnswerTests: omnitest(correctExpr='my_df <- data.frame(age=numeric(0), gender=character(0), weight=numeric(0))')
+  Hint: Create with my_df <- data.frame(age=numeric(0), gender=character(0), weight=numeric(0)).
+
+- Class: text
+  Output: "Note how each variable in the data frame is specified with its mode (i.e., numeric, character), though the values are not provided."
+
+- Class: cmd_question
+  Output: Modify 'my_df' with 'edit(my_df)' command and assign the modified data frame back to my_df. This command should open a pop-up window for editing the entries in the data frame. Add a few entries into the frame, and close the editor window.
+  CorrectAnswer: my_df <- edit(my_df)
+  AnswerTests: omnitest(correctExpr='my_df <- edit(my_df)')
+  Hint: Edit with my_df <- edit(my_df).
+
+- Class: cmd_question
+  Output: Display the content of the modified 'my_df' on the screen.
+  CorrectAnswer: my_df
+  AnswerTests: omnitest(correctExpr='my_df')
+  Hint: View with my_df.
+
+- Class: text
+  Output: "Now let's examine how to import well-structured data from a delimited text file. We will use read.table() function using the following syntax:
+read.table(file, header=logical_value,sep=\"delimeter\", row_names=\"name\")
+
+Check help(read.table) for the description of the input arguments.
+"
+
+- Class: cmd_question
+  Output: Execute example(read.table) command to get an idea of how read.table() is used.
+  CorrectAnswer: example(read.table)
+  AnswerTests: omnitest(correctExpr='example(read.table)')
+  Hint: What do you get with example(read.table)?
+
+- Class: cmd_question
+  Output: "I have pre-loaded the data from the ASCII text file \"flag.data.txt\" into a data frame 'flags'. We would like to use the read.table() command to load the same file \"flag.data.txt\" into a variable my_flags with the following options: header=FALSE, sep=\",\". Before using this command, let's check if the file actually exists with file.exists() function; otherwise, you will get an error message \"cannot open file 'flag.data.txt': No such file or directory\"."
+  CorrectAnswer: file.exists("flag.data.txt")
+  AnswerTests: omnitest(correctExpr='file.exists("flag.data.txt")')
+  Hint: "Hint: Try file.exists(\"flag.data.txt\")"
+
+
+- Class: cmd_question
+  Output: "Because the answer is FALSE, you should create the absolute path to the file using the following command: 
+filepath <- file.path(path.package(\"swirl\"), \"Courses\", \"R_Programming\", \"Data_Reading_and_Writing\", \"flag.data.txt\")
+
+"
+  CorrectAnswer: filepath <- file.path(path.package("swirl"), "Courses", "R_Programming", "Data_Reading_and_Writing", "flag.data.txt")
+  AnswerTests: omnitest(correctExpr='filepath <- file.path(path.package("swirl"), "Courses", "R_Programming", "Data_Reading_and_Writing", "flag.data.txt")')
+  Hint: "What do you get with 'filepath <- file.path(path.package(\"swirl\"), \"Courses\", \"R_Programming\", \"Data_Reading_and_Writing\", \"flag.data.txt\")'?"
+
+- Class: cmd_question
+  Output: "Now try to use the read.table() command to load the file \"flag.data.txt\" by its 'filepath' into a variable 'my_flags' with the following options: header=FALSE, sep=\",\"."
+  CorrectAnswer: my_flags <- read.table(filepath, header=FALSE, sep=",")
+  AnswerTests: omnitest(correctExpr='my_flags <- read.table(filepath, header=FALSE, sep=",")')
+  Hint: "What do you get with 'my_flags <- read.table(filepath, header=FALSE, sep=\",\")'?"
+
+
+- Class: cmd_question
+  Output: "Let's compare if the names of the columns in 'flags' and 'my_flags' are the same using the following command:
+identical (names(flags), names(my_flags))
+"
+  CorrectAnswer: identical (names(flags), names(my_flags))
+  AnswerTests: omnitest(correctExpr='identical (names(flags), names(my_flags))')
+  Hint: Use identical (names(flags), names(my_flags))
+
+- Class: cmd_question
+  Output: Check the names of the columns in 'my_flags' using names() function. As you can see they are not informative.
+  CorrectAnswer: names(my_flags)
+  AnswerTests: omnitest(correctExpr='names(my_flags)')
+  Hint: Try names(my_flags)
+
+- Class: cmd_question
+  Output: "Let's assign the following names to the columns using colnames() command:
+colnames(my_flags) <- c(\"name\", \"landmass\", \"zone\", \"area\", \"population\", \"language\", \"religion\", \"bars\", \"stripes\", \"colours\", \"red\", \"green\", \"blue\", \"gold\", \"white\", \"black\",\"orange\", \"mainhue\", \"circles\", \"crosses\", \"saltires\", \"quarters\", \"sunstars\", \"crescent\", \"triangle\", \"icon\", \"animate\", \"text\", \"topleft\", \"botright\")
+
+"
+  CorrectAnswer: colnames(my_flags) <- c("name", "landmass", "zone", "area", "population",
+                     "language", "religion", "bars", "stripes", "colours",
+                     "red", "green", "blue", "gold", "white", "black",
+                     "orange", "mainhue", "circles", "crosses", "saltires",
+                     "quarters", "sunstars", "crescent", "triangle",
+                     "icon", "animate", "text", "topleft", "botright")
+  AnswerTests: omnitest(correctExpr='colnames(my_flags) <- c("name", "landmass", "zone", "area", "population",
+                     "language", "religion", "bars", "stripes", "colours",
+                     "red", "green", "blue", "gold", "white", "black",
+                     "orange", "mainhue", "circles", "crosses", "saltires",
+                     "quarters", "sunstars", "crescent", "triangle",
+                     "icon", "animate", "text", "topleft", "botright")')
+  Hint: Run the command specified in the question
+
+- Class: cmd_question
+  Output: "Now check if the names of the columns in 'flags' and 'my_flags' are identical:
+isTRUE(identical (names(flags), names(my_flags)))
+"
+  CorrectAnswer: isTRUE(identical (names(flags), names(my_flags)))
+  AnswerTests: omnitest(correctExpr='isTRUE(identical (names(flags), names(my_flags)))')
+  Hint: Use isTRUE(identical (names(flags), names(my_flags)))
+
+- Class: text
+  Output: "IMPORTANT NOTE: By default, character variables are converted to factors. To suppress this behavior, pass 'stringAsFactor=FALSE' as an option to the read.table() function. Alternatively, you can use 'colClasses' option to specify a class (e.g., logical, numeric, character, factor) for each column; for example, colClasses=c(\"logical\", \"numeric\", \"character\")"
+
+- Class: text
+  Output: "Reading CSV file: You can use read.csv() function to read the Comma Separated Value (CSV) file the same way as read.table() function." 
+
+- Class: cmd_question
+  Output: "Let's assign a full URL to the CSV file to urlCSVfile variable:
+urlCSVfile<-\"http://www.jaredlander.com/data/Tomato%20First.csv\"
+
+"
+  CorrectAnswer: urlCSVfile<-"http://www.jaredlander.com/data/Tomato%20First.csv"
+  AnswerTests: omnitest(correctExpr='urlCSVfile<-"http://www.jaredlander.com/data/Tomato%20First.csv"')
+  Hint: Copy and paste the command in the question
+
+- Class: cmd_question
+  Output: "Now read  urlCSVfile with read.csv() command and header=TRUE and store the data in the data frame 'tomato'."
+  CorrectAnswer: tomato <- read.csv(urlCSVfile,header=TRUE)
+  AnswerTests: omnitest(correctExpr='tomato <- read.csv(urlCSVfile,header=TRUE)')
+  Hint: Try tomato <- read.csv(urlCSVfile,header=TRUE)
+
+- Class: cmd_question
+  Output: "Similar to read.table() and read.csv(), you can write the R data frame into a file with write.table() or write.csv() command. Try the following command:
+write.csv(tomato,file=\"tomato.csv\")
+and check if such a file was created in getwd() directory.
+"
+  CorrectAnswer: write.csv(tomato,file="tomato.csv")
+  AnswerTests: omnitest(correctExpr='write.csv(tomato,file="tomato.csv")')
+  Hint: Try write.csv(tomato,file="tomato.csv")
+
+- Class: cmd_question
+  Output: "Check that the file was indeed created with list.files() command.
+"
+  CorrectAnswer: list.files()
+  AnswerTests: omnitest(correctExpr='list.files()')
+  Hint: Try list.files()
+
+- Class: cmd_question
+  Output: "As your R environment grows in size, especially with large-size data objects, you may find it helpful to save the object onto the disk with the save() command and removing it from your R environment with rm() command. Later, when you need this object again, you load it into the R environment with load() command. Try to save 'tomato' object using the following command:
+
+save(tomato, file=\"tomato.RData\")
+
+Note that the file will be saved into getwd() directory.
+"
+  CorrectAnswer: save(tomato, file="tomato.RData")
+  AnswerTests: omnitest(correctExpr='save(tomato,file="tomato.RData")')
+  Hint: Try save(tomato, file="tomato.RData")
+
+- Class: cmd_question
+  Output: "Now remove 'tomato' object and check that it is not in your Global Environment any more"
+  CorrectAnswer: rm(tomato)
+  AnswerTests: omnitest(correctExpr='rm(tomato)')
+  Hint: Try rm(tomato)
+
+- Class: cmd_question
+  Output: "Load tomato.RData file"
+  CorrectAnswer: load("tomato.RData")
+  AnswerTests: omnitest(correctExpr='load("tomato.RData")')
+  Hint: "Try load(\"tomato.RData\")"
+
+- Class: cmd_question
+  Output: "Display tomato with head() command onto the screen"
+  CorrectAnswer: head(tomato)
+  AnswerTests: omnitest(correctExpr='head(tomato)')
+  Hint: Try head(tomato)
+
+- Class: text
+  Output: "Note that you can save multiple R objects into the same rdata file by listing them inside of the save() command before the file name: e.g., save(my_flags, tomato, file=\"my_session.RData\")." 
+
+- Class: text
+  Output: "Likewise, you can save the entire R environment for your current session with save.image() command that will effectively execute save(list = ls(all = TRUE), file = \".RData\") and will save the file in getwd() working directory." 
+
+- Class: cmd_question
+  Output: "Many R packages include data that can be loaded with data() function. Use data() command to load 'iris' data set."
+  CorrectAnswer: data(iris)
+  AnswerTests: omnitest(correctExpr='data(iris)')
+  Hint: "Try data(iris)"
+
+- Class: text
+  Output: "Check the list of all the data sets across all the installed packages, simply use data() function. Use data(package=\"pkg_name\") command to load all the data sets for the specified package."
+
+- Class: cmd_question
+  Output: "If data is available as an HTML table, then you may use the readHTMLTable() function in the 'XML' package to read it. First, use the install.packages() command to install the 'XML' package."
+  CorrectAnswer: install.packages('XML')
+  AnswerTests: omnitest(correctExpr='install.packages(\'XML\')')
+  Hint: "Try install.packages('XML')"
+  
+- Class: cmd_question
+  Output: "Next, load the 'XML' package using the library() command."
+  CorrectAnswer: library(XML)
+  AnswerTests: omnitest(correctExpr='library(XML)')
+  Hint: "Try library(XML)"
+  
+- Class: cmd_question
+  Output: "Finally, read the data from the HTML table using the readHTMLTable() function as follows: bowlTable <- readHTMLTable(\"http://www.jaredlander.com/2012/02/another-kind-of-super-bowl-pool\")"
+  CorrectAnswer: bowlTable <- readHTMLTable("http://www.jaredlander.com/2012/02/another-kind-of-super-bowl-pool")
+  AnswerTests: omnitest(correctExpr='bowlTable <- readHTMLTable("http://www.jaredlander.com/2012/02/another-kind-of-super-bowl-pool")')
+  Hint: "Copy and paste the following expression: bowlTable <- readHTMLTable(\"http://www.jaredlander.com/2012/02/another-kind-of-super-bowl-pool\")"
+
+- Class: cmd_question
+  Output: "Display the content of 'bowlTable' on the screen."
+  CorrectAnswer: bowlTable
+  AnswerTests: omnitest(correctExpr='bowlTable')
+  Hint: View with bowlTable.
+  
+- Class: text
+  Output: "In the Intro to R course, you have used source(\"my_script.R\") command to input the R script into your environment. Now assume that you want to write all the output from the R console to a file as you are running the R session. To do that, you will use sink() command."
+
+- Class: text
+  Output: "However, sink() redirects only text output. If your R session produces any graphic output, then to redirect this graphic output you may choose the proper function based on the output format of interest (e.g., pdf(), png(), jpeg(), bmp(), postscript())."
+
+- Class: text
+  Output: "Putting it altogether, you may try to run the following sequence of commands:  'sink(\"plot_ex.txt\", append=TRUE, split=TRUE); pdf(\"plot_ex.pdf\"); example(plot); sink(); dev.off()'. I would NOT recommend running it under swirl(). Instead, exist swirl() and run it in the R console. Check the content of both plot_ex.txt and plot_ex.pdf files that are saved under getwd() directory."

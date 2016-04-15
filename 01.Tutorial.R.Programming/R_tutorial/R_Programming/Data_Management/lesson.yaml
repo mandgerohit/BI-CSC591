@@ -1,0 +1,170 @@
+- Class: meta
+  Course: Intermediate R Programming
+  Lesson: Data Management
+  Author: Nagiza Samatova
+  Type: Standard
+  Organization: NC State University
+  Version: 0.1.1
+
+- Class: text
+  Output: In this module, we will cover some core Data Management operations such as aggregation, transposition, merging multiple data sets, sorting, subsetting, etc. 
+
+- Class: text
+  Output: "Aggregation is a grouping of multiple observations by one or more variables (usually categorical) and applying the aggregation function (e.g., summary statistics) to each group of observations. There are a couple of different ways to aggregate the data using aggregate() function in R. The first method uses the following syntax: aggregate(x=my_data, by=list_of_vars, FUN=my_aggr_function, ...) "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+- Class: cmd_question
+  Output: Load the 'mtcars' data set using the attach() command.
+  CorrectAnswer: attach(mtcars)
+  AnswerTests: omnitest(correctExpr='attach(mtcars)')
+  Hint: Type data(mtcars) to load the data.
+
+- Class: cmd_question
+  Output: Let's set the number of digits to display to be 3 with the options() command, i.e., option(digits=3).
+  CorrectAnswer: options(digits=3)
+  AnswerTests: omnitest(correctExpr='options(digits=3)')
+  Hint: Type options(digits=3) to set the options.
+
+- Class: cmd_question
+  Output: "Aggregate mtcars data by variable 'cyl' (the number of cylinders) and apply the function mean() to all the other variables. Use the following command: 
+aggregate(x=mtcars, by=list(Cyl.Group=cyl), FUN=mean, na.rm=TRUE) "
+  CorrectAnswer: aggregate(x=mtcars, by=list(Cyl.Group=cyl), FUN=mean, na.rm=TRUE) 
+  AnswerTests: omnitest(correctExpr='aggregate(x=mtcars, by=list(Cyl.Group=cyl), FUN=mean, na.rm=TRUE)')
+  Hint: Type aggregate(mtcars, by=list(Cyl.Group=cyl), FUN=mean, na.rm=TRUE) to aggregate as requested.
+
+- Class: cmd_question
+  Output: "Now let's slightly modify the previous aggregation. Aggregate mtcars data by two variables 'cyl' (the number of cylinders) and 'gear' (the number of gears) and apply the function median() to all the other variables. Use Gear.Group as the name of the list variable. "
+  CorrectAnswer: aggregate(x=mtcars, by=list(Cyl.Group=cyl, Gear.Group=gear), FUN=median, na.rm=TRUE) 
+  AnswerTests: omnitest(correctExpr='aggregate(x=mtcars, by=list(Cyl.Group=cyl, Gear.Group=gear), FUN=median, na.rm=TRUE)')
+  Hint: Type aggregate(x=mtcars, by=list(Cyl.Group=cyl, Gear.Group=gear), FUN=median, na.rm=TRUE) to aggregate as requested.
+
+- Class: text
+  Output: "Suppose you are not interested in applying the function to all the other variables but to a subset of variables. In this case you will utilize the following syntax: aggregate(formula, data, FUN, ...), where the left side of the formula represents a variable(s) that you want to make a calculation on and the right side represents one or more variables that you want to group the calculation by. "
+
+- Class: cmd_question
+  Output: "Let's consider a specific example by first loading 'diamonds' data set in the ggplot2 package: data(diamonds, package=\"ggplot2\"). If you don't have the \"ggplot2\" package installed, first run the command: install.packages(\"ggplot2\")."
+  CorrectAnswer: data(diamonds, package="ggplot2")
+  AnswerTests: omnitest(correctExpr='data(diamonds, package="ggplot2")')
+  Hint: Type data(diamonds, package="ggplot2").
+
+- Class: cmd_question
+  Output: "Assuming that you examined the variables of the diamonds data set, let's find the mean price of the diamonds grouped by theor 'cut': aggregate(price~cut, diamonds, mean)."
+  CorrectAnswer: aggregate(price~cut, diamonds, mean)
+  AnswerTests: omnitest(correctExpr='aggregate(price~cut, diamonds, mean)')
+  Hint: Type aggregate(price~cut, diamonds, mean).
+
+- Class: cmd_question
+  Output: "If you want to group by more than one variable then you concatenate them with the plus sign on the right side of the formula. Aggregate and display the mean price of the diamonds grouped by their 'cut' and 'color'."
+  CorrectAnswer: aggregate(price~cut+color, diamonds, mean)
+  AnswerTests: omnitest(correctExpr='aggregate(price~cut+color, diamonds, mean)')
+  Hint: Type aggregate(price~cut+color, diamonds, mean).
+
+- Class: cmd_question
+  Output: "To apply the calculations to more than one variable using the formula-based syntax, these variables must be combined using the cbind() command on the left of the formula. Modify the previous example to compute the mean of the 'price' and the mean of the 'carat' variables."
+  CorrectAnswer: aggregate(cbind(price,carat)~cut+color, diamonds, mean)
+  AnswerTests: omnitest(correctExpr='aggregate(cbind(price,carat)~cut+color, diamonds, mean)')
+  Hint: Type aggregate(cbind(price,carat)~cut+color, diamonds, mean).
+
+- Class: text
+  Output: "Transposition is a simple operation that reverses rows and columns, i.e., the rows become columns and the columns become rows. It is often applied to matrices and data frames using the t() function. "
+
+- Class: cmd_question
+  Output: "Display the number of dimensions of the mtcars data set using dim() function."
+  CorrectAnswer: dim(mtcars)
+  AnswerTests: omnitest(correctExpr='dim(mtcars)')
+  Hint: Type dim(mtcars).
+
+- Class: cmd_question
+  Output: "Now display the number of dimensions of the transposed mtcars data."
+  CorrectAnswer: dim(t(mtcars))
+  AnswerTests: omnitest(correctExpr='dim(t(mtcars))')
+  Hint: Type dim(t(mtcars)).
+
+- Class: text
+  Output: "How to merge multiple data sets into a single data set? For the sake of simplicity, let's assume that you have two data frames: dfA and dfB. Merging can be performed in multiple ways depending on the conditions that hold about these data frames. "
+
+- Class: text
+  Output: "Suppose that both data frames have the same number of columns, the same order of the columns and the same column names. To merge these two frames by rows, i.e., you are joining two frames VERTICALLY, you will use rbind(dfA, dfB) command. Basically, you are adding rows to your data, keeping the same number of columns."
+
+- Class: cmd_question
+  Output: "Generate dfA data frame of size 3 by 2, filled with numeric value of '1'. You may consider data.frame(), matrix(), and rep() commands to be handy here."
+  CorrectAnswer: dfA <- data.frame(matrix(rep(1,6), nrow=3))
+  AnswerTests: omnitest(correctExpr='dfA <- data.frame(matrix(rep(1,6), nrow=3))')
+  Hint: Try dfA <- data.frame(matrix(rep(1,6), nrow=3)).
+
+- Class: cmd_question
+  Output: "Similary, generate dfB data frame of size 3 by 2, filled with numeric value of 2."
+  CorrectAnswer: dfB <- data.frame(matrix(rep(2,6), nrow=3))
+  AnswerTests: omnitest(correctExpr='dfB <- data.frame(matrix(rep(2,6), nrow=3))')
+  Hint: Try dfB <- data.frame(matrix(rep(2,6), nrow=3)).
+
+- Class: cmd_question
+  Output: "Display the results of merging dfA with dfB by rows using rbind() command."
+  CorrectAnswer: rbind(dfA, dfB)
+  AnswerTests: omnitest(correctExpr='rbind(dfA, dfB)')
+  Hint: Try rbind(dfA, dfB).
+
+- Class: text
+  Output: "Suppose that both data frames have the same number of rows, the same order of the rows, and the same row names. To merge these two frames by columns, i.e., you are concatenating them HORIZONTALLY, you will use cbind(dfA, dfB) command. Basically, you are adding columns to your data."
+
+- Class: cmd_question
+  Output: "Display the results of merging dfA with dfB by columns using cbind() command."
+  CorrectAnswer: cbind(dfA, dfB)
+  AnswerTests: omnitest(correctExpr='cbind(dfA, dfB)')
+  Hint: Try cbind(dfA, dfB).
+
+- Class: text
+  Output: "Consider a very different situation: two or more data frames have one or more variables in common. Suppose you want to join (column-wise) these frames by these common variables. You can accomplish that task using merge(x=dfA, y=dfB, by=vector_of_common_vars) function. "
+
+- Class: cmd_question
+  Output: "Let's assign names to the columns of dfA to be c(\"ID\",\"Age\"), using colnames() command."
+  CorrectAnswer: colnames(dfA)<-c("ID","Age")
+  AnswerTests: omnitest(correctExpr='colnames(dfA)<-c(\"ID\",\"Age\")')
+  Hint: "Try colnames(dfA)<-c(\"ID\",\"Age\")."
+
+- Class: cmd_question
+  Output: "Similarly, assign names to the columns of dfB to be c(\"Weight\",\"ID\"), using colnames() command."
+  CorrectAnswer: colnames(dfB)<-c("Weight","ID")
+  AnswerTests: omnitest(correctExpr='colnames(dfB)<-c(\"Weight\",\"ID\")')
+  Hint: "See how yo did it for dfA."
+
+- Class: cmd_question
+  Output: "Now merge dfA with dfB by a common variable 'ID'."
+  CorrectAnswer: merge(dfA, dfB, by="ID")
+  AnswerTests: omnitest(correctExpr='merge(dfA, dfB, by=\"ID\")')
+  Hint: "Try merge(dfA, dfB, by=\"ID\")."
+
+- Class: cmd_question
+  Output: "Is this the output you would expect? Let's modify dfA by changing the value of dfA[2,1] to contain the value of 2."
+  CorrectAnswer: dfA[2,1]<-2
+  AnswerTests: omnitest(correctExpr='dfA[2,1]<-2')
+  Hint: Try dfA[2,1]<-2
+
+- Class: cmd_question
+  Output: "Now merge dfA with dfB by a common variable 'ID' and again and try to understand the output so produced."
+  CorrectAnswer: merge(dfA, dfB, by="ID")
+  AnswerTests: omnitest(correctExpr='merge(dfA, dfB, by=\"ID\")')
+  Hint: "Try merge(dfA, dfB, by=\"ID\")."
+
+- Class: text
+  Output: "Suppose you now want to view the data but in a sorted order of a specified variable(s). In R, order() function serves this purpose. BY default, the sorting is in ascending order. To sort in descending order, prepend the minus sign to the variable name passed to the order command.  "
+
+- Class: cmd_question
+  Output: "Let's display the mtcars data frame sorted in the ascending order by 'mpg' using mtcars[order(mpg),].  "
+  CorrectAnswer: mtcars[order(mpg),]
+  AnswerTests: omnitest(correctExpr='mtcars[order(mpg),]')
+  Hint: "Try mtcars[order(mpg),]."
+
+- Class: cmd_question
+  Output: "Now display the mtcars data frame sorted in the ascending order by 'mpg' and in the descending order by 'hp' "
+  CorrectAnswer: mtcars[order(mpg,-hp),]
+  AnswerTests: omnitest(correctExpr='mtcars[order(mpg,-hp),]')
+  Hint: "Try mtcars[order(mpg,-hp),]."
+
+- Class: text
+  Output: "Subsetting the data in R can be performed in many different ways. Using subset() function is one of the common ways.  The syntax is as follows, subset(x, subset_condition, select=variables_to_include)"
+
+- Class: cmd_question
+  Output: "Display the subset of the mtcars data frame for which mpg is in the range of [26, 33] and hp is greater or equal to 65 'mpg'. Only show mpg, hp, cyl, and wt variables. "
+  CorrectAnswer: subset(mtcars, mpg>=26 & mpg <= 33 & hp >=65, select=c(mpg,hp,cyl,wt))
+  AnswerTests: omnitest(correctExpr='subset(mtcars, mpg>=26 & mpg <= 33 & hp >=65, select=c(mpg,hp,cyl,wt))')
+  Hint: "Try subset(mtcars, mpg>=26 & mpg <= 33 & hp >=65, select=c(mpg,hp,cyl,wt))."

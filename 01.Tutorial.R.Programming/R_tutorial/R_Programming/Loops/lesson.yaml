@@ -1,0 +1,94 @@
+- Class: meta
+  Course: Intermediate R Programming
+  Lesson: Loops
+  Author: Nagiza Samatova
+  Type: NA
+  Organization: North Carolina State University
+  Version: 0.0.1
+
+
+- Class: text
+  Output: "In this module, we will cover two main ways to construct loops: for-loop and while-loop."
+
+- Class: text
+  Output: "The for-loop is designed to iterate over a sequence of objects, or the elements of an object, such as vector, matrix, data frame, or list."
+
+- Class: text
+  Output: "There are two equivalent ways to access the elements in sequence: (a) directly by the element or (b) by the position of the element in the sequence."
+
+- Class: text
+  Output: "To access by the element, the iterator variable in the 'for' loop will store the current element in the sequence. Here is the syntax of the 'for' loop in this case: 
+for (current_element in sequence) { expression }. Here is an example that you should try from the R console: 
+for (current_letter in LETTERS) { 
+    print(current_letter)
+}"
+
+- Class: script
+  Output: "for-by-element: Code the function for_by_element(n) that uses 'for' statement to concatenate the numbers 1 through n (default n=3) in a sequence using the paste() command and returns the concatenated string. The call for_by_element(2) should return \" 1 2\" and there is no need to check for incorrect value of n.
+  Make sure to SAVE your script before you type submit()."
+  AnswerTests: test_func1()
+  Hint: "Hint: Use paste(msg, current_number) to construct the message."
+  Script: for_by_element.R
+
+- Class: text
+  Output: "To access by the position of the element in the sequence, the iterator variable in the 'for' loop will store the current position of the target element. Here is the syntax of the 'for' loop in this case: 
+for (position in 1:length(sequence)) { expression }. Here is an example that you should try from the R console: 
+for (pos in 1:length(letters)) { 
+    print(letters[pos])
+}"
+
+- Class: script
+  Output: "for-by-position: Code the function for_by_position(n) that uses 'for' statement to concatenate the numbers 1 through n (default n=3) in a reverse order using the paste() command and returns the concatenated string. The call for_by_position(2) should return \"2 1 \" and there is no need to check for incorrect value of n.
+  Make sure to SAVE your script before you type submit()."
+  AnswerTests: test_func2()
+  Hint: "Hint: Use paste(my_sequence[pos],msg) to construct the message."
+  Script: for_by_position.R
+
+- Class: script
+  Output: "Looping over list: Code the function for_over_list(n) that uses 'for' statements to sum all the elements in the list using each of the two methods: accessing by the element of the list and by the position of the list. Remember to use double-quotes to access list element by its position number, i.e., my_list[[2]].
+  Make sure to SAVE your script before you type submit()."
+  AnswerTests: test_func3()
+  Hint: "Hint: Apply sum() function to each element of the list, as you iterate over the list elements."
+  Script: for_over_list.R
+
+- Class: script
+  Output: "Looping over matrix with nested for-loops: Code the function nested_for(matrix=data) that uses nested 'for' statements to iterate over all the elements of the matrix and sums them all up. Here is the syntax for the nested loops:
+
+for ( out_var in outer_sequence ) {
+  for ( in_var in inner_sequence ) {
+      expression
+  }
+}
+  Make sure to SAVE your script before you type submit()."
+  AnswerTests: test_func4()
+  Hint: "Hint: Use nrow() and ncol() to get info about the  number of rows and columns in the matrix."
+  Script: nested_for.R
+
+- Class: text
+  Output: "Now let's consider a 'while' loop. A 'while' loop first tests a 'condition'. If it is TRUE, then it executes the loop body. Once the loop
+body is executed, the 'condition' is tested again, and so forth:
+
+while (condition) {
+  expression
+  update_condition
+}
+
+Make sure that inside of the loop body you update the 'condition' so that it will eventually lead to FALSE. Otherwise, you will end up with an INFINITE loop."
+
+- Class: text
+  Output: "Here is an example:
+
+count <- 5;
+while (count > 0) {
+   print(count);
+   # update the count;
+   count <- count - 1
+}
+"
+
+- Class: script
+  Output: "Code the 'while' loop that initializes the stock_price with the value passed to the function as an argument. As long as the price is higher than 25, pdecreas the stock price by 5, and increase the number of attempts by one. Return the number of attempts tried before the price finally dropped to its target value.
+  Make sure to SAVE your script before you type submit()."
+  AnswerTests: test_func5()
+  Hint: "Hint: Use nrow() and ncol() to get info about the  number of rows and columns in the matrix."
+  Script: while_stocks.R
